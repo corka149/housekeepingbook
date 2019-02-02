@@ -13,6 +13,7 @@
             <tr th:each="category: ${categoryList}">
                 <td th:text="${category.id}">1</td>
                 <td th:text="${category.name}">Miete</td>
+                <td><a th:href="@{/category/1/delete}">X</a></td>
             </tr>
         </tbody>
     </table>

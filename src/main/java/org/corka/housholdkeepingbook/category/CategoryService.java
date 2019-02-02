@@ -28,4 +28,9 @@ public class CategoryService {
     public void addCategory(Category newCategory) {
         this.categoryRepository.save(newCategory);
     }
+
+    public void deleteCategory(long id) {
+        log.info("Delete {} with id {}", Category.class.getName(), id);
+        this.categoryRepository.deleteById(id);
+    }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
 <div>
     <h1 th:text="#{categories}"></h1>
     <table>
@@ -13,7 +13,7 @@
             <tr th:each="category: ${categoryList}">
                 <td th:text="${category.id}">1</td>
                 <td th:text="${category.name}">Miete</td>
-                <td><a th:href="@{/category/1/delete}">X</a></td>
+                <td><a th:href="@{/category/__${category.id}__/delete}">X</a></td>
             </tr>
         </tbody>
     </table>

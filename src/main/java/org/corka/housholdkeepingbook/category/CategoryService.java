@@ -3,8 +3,10 @@ package org.corka.housholdkeepingbook.category;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -17,8 +19,10 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public List<Category> getAllCategories() {
-        return this.categoryRepository.findAll();
+    public List<Category> getAllActiveCategories() {
+        return this.categoryRepository.findAll().stream()
+                .filter(this::isNotDeleteCategory)
+                .collect(Collectors.toList());
     }
 
     public void addCategory(String categoryName) {
@@ -29,8 +33,15 @@ public class CategoryService {
         this.categoryRepository.save(newCategory);
     }
 
+    @Transactional
     public void deleteCategory(long id) {
-        log.info("Delete {} with id {}", Category.class.getName(), id);
-        this.categoryRepository.deleteById(id);
+        log.debug("Delete {} with id {}", Category.class.getName(), id);
+        Category category = this.categoryRepository.getOne(id);
+        category.setDeleted(true);
+        this.categoryRepository.save(category);
+    }
+
+    private boolean isNotDeleteCategory(Category category) {
+        return !category.isDeleted();
     }
 }

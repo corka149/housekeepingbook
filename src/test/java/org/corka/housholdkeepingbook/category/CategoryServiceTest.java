@@ -1,5 +1,6 @@
 package org.corka.housholdkeepingbook.category;
 
+import lombok.var;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,6 +41,21 @@ public class CategoryServiceTest {
         this.categoryService.addCategory("insurance");
         this.categoryService.addCategory("entertainment");
         checkRowCount(3);
+    }
+
+    @Test
+    public void testGetAllActiveCategories() {
+        checkRowCount(0);
+        this.categoryService.addCategory("food");
+        this.categoryService.addCategory("insurance");
+        this.categoryService.addCategory("entertainment");
+
+        var activeCategories = this.categoryService.getAllActiveCategories();
+        assertThat(activeCategories.size()).isEqualTo(3);
+
+        this.categoryService.deleteCategory(activeCategories.get(0).getId());
+        activeCategories = this.categoryService.getAllActiveCategories();
+        assertThat(activeCategories.size()).isEqualTo(2);
     }
 
     private void checkRowCount(int expected) {

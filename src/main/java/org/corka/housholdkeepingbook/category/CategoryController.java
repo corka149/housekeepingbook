@@ -24,7 +24,7 @@ public class CategoryController {
 
     @GetMapping
     public String viewCategories(Model model) {
-        List<Category> categories = this.categoryService.getAllCategories();
+        List<Category> categories = this.categoryService.getAllActiveCategories();
         model.addAttribute("categoryList", categories);
         model.addAttribute("newCategory", new Category());
         return CATEGORIES;

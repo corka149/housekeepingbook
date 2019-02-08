@@ -18,9 +18,9 @@
         </tbody>
     </table>
     <div>
-        <form method="post" action="#" th:action="@{/category}" th:object="${newCategory}">
-            <label for="name" th:text="#{categoryName}">Name</label>
-            <input type="text" th:field="*{name}" id="name">
+        <form method="post" action="#" th:action="@{/category}" th:object="${newCategory}" id="categoryForm">
+            <label for="inputCategoryName" th:text="#{categoryName}">Name</label>
+            <input type="text" th:field="*{name}" id="inputCategoryName">
             <br>
             <input type="submit" value="Submit">
         </form>

@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="de">
+
+<head th:include="head :: dependencies">
+</head>
+
+<body>
+
+<nav th:replace="menu :: bar">
+</nav>
+
+<main role="main" class="container">
 <div>
-    <h1 th:text="#{categories}"></h1>
+    <h1 th:text="#{categories}">Categories</h1>
     <table>
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
         </thead>
         <tbody>
-            <tr th:each="category: ${categoryList}">
-                <td th:text="${category.id}">1</td>
-                <td th:text="${category.name}">Miete</td>
-                <td><a th:href="@{/category/__${category.id}__/delete}">X</a></td>
-            </tr>
+        <tr th:each="category: ${categoryList}">
+            <td th:text="${category.id}">1</td>
+            <td th:text="${category.name}">Rent</td>
+            <td><a th:href="@{/category/__${category.id}__/delete}">X</a></td>
+        </tr>
         </tbody>
     </table>
     <div>
@@ -26,4 +36,7 @@
         </form>
     </div>
 </div>
+</main>
+
+</body>
 </html>

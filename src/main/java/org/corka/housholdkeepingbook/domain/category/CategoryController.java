@@ -1,4 +1,4 @@
-package org.corka.housholdkeepingbook.category;
+package org.corka.housholdkeepingbook.domain.category;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

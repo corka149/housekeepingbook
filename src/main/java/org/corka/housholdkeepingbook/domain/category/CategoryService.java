@@ -1,4 +1,4 @@
-package org.corka.housholdkeepingbook.category;
+package org.corka.housholdkeepingbook.domain.category;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

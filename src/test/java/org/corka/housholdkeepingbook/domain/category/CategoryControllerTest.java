@@ -1,6 +1,5 @@
-package org.corka.housholdkeepingbook.category;
+package org.corka.housholdkeepingbook.domain.category;
 
-import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.html.*;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package org.corka.housholdkeepingbook.category;
+package org.corka.housholdkeepingbook.domain.category;
 
 import lombok.var;
 import org.junit.Before;

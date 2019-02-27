@@ -7,7 +7,7 @@
 <body>
 
 <nav th:fragment="bar" class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Expand at sm</a>
+    <a class="navbar-brand" href="#" th:text="#{title}">Housholding book</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -27,8 +27,7 @@
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{admin}">Administration</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown03">
                     <a class="dropdown-item" th:href="@{/category}" th:text="#{categories}" href="./categories.html">Categories</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" th:href="@{/user}" th:text="#{users}" href="./users.html">Users</a>
                 </div>
             </li>
         </ul>

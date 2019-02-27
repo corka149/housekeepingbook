@@ -12,18 +12,19 @@
 <main role="main" class="container">
 <div>
     <h1 th:text="#{categories}">Categories</h1>
-    <table>
+    <table class="table">
         <thead>
         <tr>
-            <th>Id</th>
-            <th>Name</th>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">&nbsp;</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="category: ${categoryList}">
-            <td th:text="${category.id}">1</td>
+            <th scope="row" th:text="${category.id}">1</th>
             <td th:text="${category.name}">Rent</td>
-            <td><a th:href="@{/category/__${category.id}__/delete}">X</a></td>
+            <td><a class="btn btn-link" href="#" role="button" th:href="@{/category/__${category.id}__/delete}">X</a></td>
         </tr>
         </tbody>
     </table>

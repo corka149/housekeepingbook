@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 @Configuration
@@ -47,10 +48,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         };
     }
 
-    // TODO Remove me soon
+
     @Bean
-    @SuppressWarnings("deprecation")
-    public static NoOpPasswordEncoder passwordEncoder() {
-        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+    public static BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(10);
     }
 }

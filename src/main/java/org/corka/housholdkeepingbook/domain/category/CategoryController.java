@@ -37,8 +37,8 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}/delete")
-    public ModelAndView deleteCategory(@PathVariable long id, ModelMap model) {
+    public String deleteCategory(@PathVariable long id, ModelMap model) {
         this.categoryService.deleteCategory(id);
-        return new ModelAndView("redirect:..", model);
+        return "redirect:..";
     }
 }

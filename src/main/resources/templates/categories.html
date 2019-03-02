@@ -12,6 +12,7 @@
 <main role="main" class="container">
 <div>
     <h1 th:text="#{categories}">Categories</h1>
+
     <table class="table">
         <thead>
         <tr>
@@ -24,16 +25,19 @@
         <tr th:each="category: ${categoryList}">
             <th scope="row" th:text="${category.id}">1</th>
             <td th:text="${category.name}">Rent</td>
-            <td><a class="btn btn-link" href="#" role="button" th:href="@{/category/__${category.id}__/delete}">X</a></td>
+            <td><a style="font-weight: bold; color: red;" class="btn btn-link" href="#" role="button" th:href="@{/category/__${category.id}__/delete}">X</a></td>
         </tr>
         </tbody>
     </table>
+
     <div>
         <form method="post" action="#" th:action="@{/category}" th:object="${newCategory}" id="categoryForm">
-            <label for="inputCategoryName" th:text="#{categoryName}">Name</label>
-            <input type="text" th:field="*{name}" id="inputCategoryName">
-            <br>
-            <input type="submit" value="Submit">
+            <div class="form-group">
+                <label for="inputCategoryName" th:text="#{categoryName}">Name</label>
+                <input required class="form-control" type="text" th:placeholder="#{categoryNamePlaceholder}" th:field="*{name}" id="inputCategoryName">
+            </div>
+
+            <input class="btn btn-primary" type="submit" value="Submit">
         </form>
     </div>
 </div>

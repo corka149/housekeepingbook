@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -38,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> {
-            org.corka.housholdkeepingbook.domain.user.User user = userRepository.findByName(username);
+            org.corka.housholdkeepingbook.domain.user.User user = userRepository.findByNameContainingIgnoreCase(username);
             if (user != null) {
                 return new User(user.getName(), user.getPassword(),
                         true,true,true,true, AuthorityUtils.createAuthorityList("USER"));

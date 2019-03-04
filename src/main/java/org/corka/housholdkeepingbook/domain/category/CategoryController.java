@@ -1,14 +1,15 @@
 package org.corka.housholdkeepingbook.domain.category;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("category")
 public class CategoryController {
@@ -31,13 +32,14 @@ public class CategoryController {
     }
 
     @PostMapping
-    public String addCategory(@ModelAttribute Category newCategory, Model model) {
-        this.categoryService.addCategory(newCategory);
+    public String addCategory(@ModelAttribute Category newCategory, Model model, Principal principal) {
+        log.debug("User '{}' tries to add a new category", principal.getName());
+        this.categoryService.addCategory(newCategory.getName(), principal.getName());
         return this.viewCategories(model);
     }
 
     @GetMapping("/{id}/delete")
-    public String deleteCategory(@PathVariable long id, ModelMap model) {
+    public String deleteCategory(@PathVariable long id) {
         this.categoryService.deleteCategory(id);
         return "redirect:..";
     }

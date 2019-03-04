@@ -1,8 +1,10 @@
 package org.corka.housholdkeepingbook.domain.category;
 
 import lombok.*;
+import org.corka.housholdkeepingbook.domain.user.User;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * Categorize expenses.
@@ -25,4 +27,12 @@ public class Category {
     @NonNull
     @Column(nullable = false)
     private boolean deleted = false;
+
+    @NonNull
+    @ManyToOne
+    private User creator;
+
+    @NonNull
+    @Column(nullable = false)
+    private LocalDateTime creationDate;
 }

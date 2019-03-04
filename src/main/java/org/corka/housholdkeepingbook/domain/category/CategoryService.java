@@ -1,10 +1,13 @@
 package org.corka.housholdkeepingbook.domain.category;
 
 import lombok.extern.slf4j.Slf4j;
+import org.corka.housholdkeepingbook.domain.user.User;
+import org.corka.housholdkeepingbook.domain.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +17,12 @@ public class CategoryService {
 
     private CategoryRepository categoryRepository;
 
+    private UserService userService;
+
     @Autowired
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository, UserService userService) {
         this.categoryRepository = categoryRepository;
+        this.userService = userService;
     }
 
     public List<Category> getAllActiveCategories() {
@@ -25,12 +31,9 @@ public class CategoryService {
                 .collect(Collectors.toList());
     }
 
-    public void addCategory(String categoryName) {
-        this.addCategory(new Category(categoryName));
-    }
-
-    public void addCategory(Category newCategory) {
-        this.categoryRepository.save(newCategory);
+    public void addCategory(String categoryName, String userName) {
+        User creator = this.userService.findUserByName(userName);
+        this.categoryRepository.save(new Category(categoryName, creator, LocalDateTime.now()));
     }
 
     @Transactional

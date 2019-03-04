@@ -1,5 +1,6 @@
 package org.corka.housholdkeepingbook.domain.user;
 
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,10 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    @SneakyThrows
     public User addUser(User user) {
+        if (this.userRepository.findByNameContainingIgnoreCase(user.getName()) != null) throw new UserAlreadyExistsException();
+
         user.setPassword(this.passwordEncoder.encode(user.getPassword()));
         return this.userRepository.save(user);
     }
@@ -33,5 +37,9 @@ public class UserService {
 
     public void deleteUser(long id) {
         this.userRepository.deleteById(id);
+    }
+
+    public User findUserByName(String userName) {
+        return this.userRepository.findByNameContainingIgnoreCase(userName);
     }
 }

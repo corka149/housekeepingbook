@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             org.corka.housholdkeepingbook.domain.user.User user = userRepository.findByNameContainingIgnoreCase(username);
             if (user != null) {
                 return new User(user.getName(), user.getPassword(),
-                        true,true,true,true, AuthorityUtils.createAuthorityList("USER"));
+                        true,true,true,true, AuthorityUtils.createAuthorityList("ROLE_USER"));
             } else {
                 throw new UsernameNotFoundException("Could not find the user '" + username + "'");
             }

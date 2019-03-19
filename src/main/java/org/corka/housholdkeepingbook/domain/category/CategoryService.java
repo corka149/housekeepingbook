@@ -1,6 +1,7 @@
 package org.corka.housholdkeepingbook.domain.category;
 
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.corka.housholdkeepingbook.domain.user.User;
 import org.corka.housholdkeepingbook.domain.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,15 @@ public class CategoryService {
     }
 
     public List<Category> getAllActiveCategories() {
-        return this.categoryRepository.findAll().stream()
+        val activeCategories = this.categoryRepository.findAll().stream()
                 .filter(this::isNotDeleteCategory)
                 .collect(Collectors.toList());
+        log.info("All active categories requested. Total amount {}", activeCategories.size());
+        return activeCategories;
     }
 
     public void addCategory(String categoryName, String userName) {
+        log.info("User {} adds new category {}", userName, categoryName);
         User creator = this.userService.findUserByName(userName);
         this.categoryRepository.save(new Category(categoryName, creator, LocalDateTime.now()));
     }
@@ -46,5 +50,9 @@ public class CategoryService {
 
     private boolean isNotDeleteCategory(Category category) {
         return !category.isDeleted();
+    }
+
+    public Category getCategoryById(long categoryId) {
+        return this.categoryRepository.getOne(categoryId);
     }
 }

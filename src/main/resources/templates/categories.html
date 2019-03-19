@@ -34,7 +34,8 @@
         <form method="post" action="#" th:action="@{/category}" th:object="${newCategory}" id="categoryForm">
             <div class="form-group">
                 <label for="inputCategoryName" th:text="#{categoryName}">Name</label>
-                <input required class="form-control" type="text" th:placeholder="#{categoryNamePlaceholder}" th:field="*{name}" id="inputCategoryName">
+                <input required class="form-control" type="text" th:placeholder="#{categoryNamePlaceholder}" th:field="*{name}" id="inputCategoryName"
+                    autofocus>
             </div>
 
             <input class="btn btn-primary" type="submit" value="Submit">

@@ -39,7 +39,7 @@
         </ul>
 
         <form th:action="@{/logout}" method="post" th:if="${#request.isUserInRole('USER')}">
-            <input type="submit" value="Sign Out"/>
+            <input type="submit" value="Sign Out" class="btn btn-secondary"/>
         </form>
         &nbsp;
     </div>

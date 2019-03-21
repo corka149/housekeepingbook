@@ -13,9 +13,22 @@
     <div>
         <h1 th:text="#{newMonthlyPayoff}">New monthly payoff</h1>
 
-        <ol>
-            <li th:each="payoff: ${payoffs}" th:text="${payoff.description}"></li>
-        </ol>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col" th:text="#{labelPayoffDate}">Payoff date</th>
+                <th scope="col" th:text="#{labelDescription}">Description</th>
+                <th scope="col" th:text="#{labelAmount}">Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="lastPayoff: ${lastPayoffs}">
+                <td th:text="${lastPayoff.payoffDate.toString()}">01.01.2001</td>
+                <td th:text="${lastPayoff.description}">Food</td>
+                <td th:text="${lastPayoff.amount}">30</td>
+            </tr>
+            </tbody>
+        </table>
 
         <h2>New entry</h2>
         <form th:action="@{payoff}" method="post" id="newPayoffEntry" th:object="${newPayoff}">

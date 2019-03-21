@@ -5,6 +5,8 @@ import lombok.val;
 import org.corka.housholdkeepingbook.domain.category.CategoryService;
 import org.corka.housholdkeepingbook.domain.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -44,4 +46,8 @@ public class PayoffService {
         return payoffs.stream().map(PayoffDtoMapper::toDto).collect(Collectors.toList());
     }
 
+    List<Payoff> getLatestPayoff(int size) {
+        val payoffPage = this.payoffRepository.findAll(PageRequest.of(0, size, Sort.by(Sort.Direction.DESC, "payoffDate")));
+        return payoffPage.getContent();
+    }
 }

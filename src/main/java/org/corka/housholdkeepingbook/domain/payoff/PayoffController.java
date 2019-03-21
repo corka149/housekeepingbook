@@ -2,6 +2,7 @@ package org.corka.housholdkeepingbook.domain.payoff;
 
 import lombok.extern.slf4j.Slf4j;
 import org.corka.housholdkeepingbook.domain.category.CategoryService;
+import org.corka.housholdkeepingbook.misc.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,8 @@ public class PayoffController {
         model.addAttribute("newPayoff", new PayoffDto());
         model.addAttribute("categories", this.categoryService.getAllActiveCategories());
         model.addAttribute("payoffs",this.payoffService.getAllPayoffs());
+        model.addAttribute("lastPayoffs", this.payoffService.getLatestPayoff(10));
+        model.addAttribute("months", Range.getIntegerRange(1, 13));
         return "payoff";
     }
 

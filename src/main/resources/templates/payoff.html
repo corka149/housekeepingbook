@@ -19,13 +19,15 @@
                 <th scope="col" th:text="#{labelPayoffDate}">Payoff date</th>
                 <th scope="col" th:text="#{labelDescription}">Description</th>
                 <th scope="col" th:text="#{labelAmount}">Amount</th>
+                <th>&nbsp;</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="lastPayoff: ${lastPayoffs}">
                 <td th:text="${lastPayoff.payoffDate.toString()}">01.01.2001</td>
                 <td th:text="${lastPayoff.description}">Food</td>
-                <td th:text="${lastPayoff.amount}">30</td>
+                <td><span th:text="${lastPayoff.amount}">30</span>&nbsp;€</td>
+                <td><a style="font-weight: bold; color: red;" class="btn btn-link" href="#" role="button" th:href="@{/payoff/__${lastPayoff.id}__/delete}">X</a></td>
             </tr>
             </tbody>
         </table>

@@ -43,4 +43,10 @@ public class Payoff {
     @JsonIgnore
     private LocalDateTime creationDate;
 
+    @Column
+    private boolean deleted = false;
+
+    public boolean isNotDeleted() {
+        return !this.deleted;
+    }
 }

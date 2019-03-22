@@ -29,4 +29,7 @@ public class User {
 
     @Column
     private String favoriteColor;
+
+    @Column
+    private boolean deleted = false;
 }

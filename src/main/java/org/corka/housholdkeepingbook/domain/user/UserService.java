@@ -28,7 +28,7 @@ public class UserService {
     @SneakyThrows
     public User addUser(User user) {
         if (this.userRepository.findByNameContainingIgnoreCase(user.getName()) != null) throw new UserAlreadyExistsException();
-        log.info("New user will be added: {}", user.toString());
+        log.info("New user will be added: {}", user.getName());
 
         user.setPassword(this.passwordEncoder.encode(user.getPassword()));
         return this.userRepository.save(user);

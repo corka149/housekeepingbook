@@ -5,6 +5,7 @@ import com.gargoylesoftware.htmlunit.html.*;
 import lombok.val;
 import org.corka.housholdkeepingbook.domain.user.User;
 import org.corka.housholdkeepingbook.domain.user.UserRepository;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

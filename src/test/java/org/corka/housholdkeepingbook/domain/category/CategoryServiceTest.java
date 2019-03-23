@@ -58,7 +58,7 @@ public class CategoryServiceTest {
     }
 
     @Test
-    public void testGetAllActiveCategories() {
+    public void testDeleteOneCategoryAndGetAllActiveCategories() {
         checkRowCount(0);
         this.categoryService.addCategory("food", "Bob");
         this.categoryService.addCategory("insurance", "Bob");

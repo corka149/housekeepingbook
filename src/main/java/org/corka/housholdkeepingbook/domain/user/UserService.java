@@ -2,9 +2,11 @@ package org.corka.housholdkeepingbook.domain.user;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,22 +34,22 @@ public class UserService {
         return this.userRepository.save(user);
     }
 
-    public List<User> getAllUsers() {
+    public List<User> getAllActiveUsers() {
         return this.userRepository.findAll().stream()
                 .filter(user -> !user.getName().equalsIgnoreCase("admin"))
+                .filter(User::isNotDeleted)
                 .collect(Collectors.toList());
     }
 
-    public void deleteUser(long id) {
-        log.info("User with id {} will be deleted.");
-        this.userRepository.deleteById(id);
+    @Transactional
+    public void deleteUser(long userId) {
+        log.info("User with id {} will be deleted.", userId);
+        val user = this.userRepository.getOne(userId);
+        user.setDeleted(true);
+        this.userRepository.save(user);
     }
 
-    public User findUserByName(String userName) {
+    public User findUserByNameIgnoreCase(String userName) {
         return this.userRepository.findByNameContainingIgnoreCase(userName);
-    }
-
-    public User getUserById(long userId) {
-        return this.userRepository.getOne(userId);
     }
 }

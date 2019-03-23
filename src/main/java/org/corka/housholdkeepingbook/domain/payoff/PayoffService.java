@@ -30,7 +30,7 @@ public class PayoffService {
 
     void addPayoff(PayoffDto payoffDto, String userName) {
         val category = this.categoryService.getCategoryById(payoffDto.getCategoryId());
-        val creator = this.userService.findUserByName(userName);
+        val creator = this.userService.findUserByNameIgnoreCase(userName);
         val payoff = PayoffDtoMapper.fromDto(payoffDto, category, creator);
         payoff.setCreationDate(LocalDateTime.now());
 

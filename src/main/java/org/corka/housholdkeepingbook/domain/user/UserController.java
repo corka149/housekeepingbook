@@ -16,7 +16,7 @@ public class UserController {
 
     @GetMapping
     public String viewUsers(Model model) {
-        model.addAttribute("userList", this.userService.getAllUsers());
+        model.addAttribute("userList", this.userService.getAllActiveUsers());
         model.addAttribute("newUser", new User());
         return USERS;
     }

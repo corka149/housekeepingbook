@@ -36,7 +36,7 @@ public class CategoryService {
 
     public void addCategory(String categoryName, String userName) {
         log.info("User {} adds new category {}", userName, categoryName);
-        User creator = this.userService.findUserByName(userName);
+        User creator = this.userService.findUserByNameIgnoreCase(userName);
         this.categoryRepository.save(new Category(categoryName, creator, LocalDateTime.now()));
     }
 

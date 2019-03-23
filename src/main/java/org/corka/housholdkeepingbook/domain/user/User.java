@@ -32,4 +32,8 @@ public class User {
 
     @Column
     private boolean deleted = false;
+
+    public boolean isNotDeleted() {
+        return !this.deleted;
+    }
 }

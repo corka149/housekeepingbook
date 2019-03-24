@@ -8,6 +8,7 @@ import org.corka.housholdkeepingbook.domain.category.CategoryService;
 import org.corka.housholdkeepingbook.domain.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -54,14 +55,19 @@ public class PayoffService {
         return payoffs;
     }
 
-    List<Payoff> getLatestPayoff(int size) {
+    List<Payoff> getLatestPayoffs(int size) {
+        val payoffs = this.payoffRepository.findLatestAddedActivePayoffs();
         return this.payoffRepository.findLatestAddedActivePayoffs().stream()
+                .filter(Payoff::isNotDeleted)
                 .limit(size)
                 .collect(Collectors.toList());
     }
 
+    @SneakyThrows
+    @Transactional
     void deletePayoff(long payoffId) {
-        val payoff = this.payoffRepository.getOne(payoffId);
+        val payoffOpt = this.payoffRepository.findById(payoffId);
+        val payoff = payoffOpt.orElseThrow(PayoffDoesNotExists::new);
         payoff.setDeleted(true);
         log.info("Deleted payoff with id {}", payoff);
         this.payoffRepository.save(payoff);

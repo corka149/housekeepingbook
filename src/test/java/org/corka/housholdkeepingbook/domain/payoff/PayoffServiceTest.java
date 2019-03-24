@@ -71,20 +71,79 @@ public class PayoffServiceTest {
     }
 
     @Test
-    public void testGetAllActivePayoffs() {
+    public void testDeleteOnePayoffAndGetAllActivePayoffs() {
+        val payoffDto1 = new PayoffDto();
+        payoffDto1.setCategoryId(category.getId());
+        payoffDto1.setDescription("AU");
+        payoffDto1.setAmount(30.0f);
+        payoffDto1.setPayoffDate(LocalDate.now());
+        checkRowCount(0);
+        this.payoffService.addPayoff(payoffDto1, this.user.getName());
+        checkRowCount(1);
 
+        val payoffDto2 = new PayoffDto();
+        payoffDto2.setCategoryId(category.getId());
+        payoffDto2.setDescription("UV");
+        payoffDto2.setAmount(66.0f);
+        payoffDto2.setPayoffDate(LocalDate.now());
+        checkRowCount(1);
+        val payoffId = this.payoffService.addPayoff(payoffDto1, this.user.getName()).getId();
+        checkRowCount(2);
+
+        val payoffDto3 = new PayoffDto();
+        payoffDto3.setCategoryId(category.getId());
+        payoffDto3.setDescription("HP");
+        payoffDto3.setAmount(560.0f);
+        payoffDto3.setPayoffDate(LocalDate.now());
+        checkRowCount(2);
+        this.payoffService.addPayoff(payoffDto1, this.user.getName());
+        checkRowCount(3);
+
+        this.payoffService.deletePayoff(payoffId);
+        // Deletes only logically
+        checkRowCount(3);
+
+        val payoffs = this.payoffService.getAllActivePayoffs();
+        assertThat(payoffs.size()).isEqualTo(2);
     }
 
     @Test
     public void testGetLatestPayoff() {
+        val payoffDto1 = new PayoffDto();
+        payoffDto1.setCategoryId(category.getId());
+        payoffDto1.setDescription("AU");
+        payoffDto1.setAmount(30.0f);
+        payoffDto1.setPayoffDate(LocalDate.now());
+        checkRowCount(0);
+        this.payoffService.addPayoff(payoffDto1, this.user.getName());
+        checkRowCount(1);
 
+        val payoffDto2 = new PayoffDto();
+        payoffDto2.setCategoryId(category.getId());
+        payoffDto2.setDescription("UV");
+        payoffDto2.setAmount(66.0f);
+        payoffDto2.setPayoffDate(LocalDate.now());
+        checkRowCount(1);
+        this.payoffService.addPayoff(payoffDto2, this.user.getName()).getId();
+        checkRowCount(2);
+
+        val payoffDto3 = new PayoffDto();
+        payoffDto3.setCategoryId(category.getId());
+        payoffDto3.setDescription("HP");
+        payoffDto3.setAmount(560.0f);
+        payoffDto3.setPayoffDate(LocalDate.now());
+        checkRowCount(2);
+        val payoffId = this.payoffService.addPayoff(payoffDto3, this.user.getName()).getId();
+        checkRowCount(3);
+
+        this.payoffService.deletePayoff(payoffId);
+        // Deletes only logically
+        checkRowCount(3);
+
+        val latestPayoff = this.payoffService.getLatestPayoffs(1);
+        assertThat(latestPayoff.size()).isEqualTo(1);
+        assertThat(latestPayoff.get(0).getDescription()).isEqualTo(payoffDto2.getDescription());
     }
-
-    @Test
-    public void testDeletePayoff() {
-
-    }
-
 
     private void checkRowCount(int expected) {
         assertThat(countRowsInTable(jdbcTemplate, "payoff")).isEqualTo(expected);

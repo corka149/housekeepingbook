@@ -14,6 +14,7 @@ public class PayoffDtoMapper {
         payoff.setDescription(payoffDto.getDescription());
         payoff.setCategory(category);
         payoff.setCreator(creator);
+        payoff.setRegularOccurrence(payoffDto.isRegularOccurrence());
 
         return payoff;
     }

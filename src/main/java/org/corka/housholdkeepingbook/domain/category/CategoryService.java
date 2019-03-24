@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -34,10 +35,10 @@ public class CategoryService {
         return activeCategories;
     }
 
-    public void addCategory(String categoryName, String userName) {
+    public Category addCategory(String categoryName, String userName) {
         log.info("User {} adds new category {}", userName, categoryName);
         User creator = this.userService.findUserByNameIgnoreCase(userName);
-        this.categoryRepository.save(new Category(categoryName, creator, LocalDateTime.now()));
+        return this.categoryRepository.save(new Category(categoryName, creator, LocalDateTime.now()));
     }
 
     @Transactional
@@ -52,7 +53,12 @@ public class CategoryService {
         return !category.isDeleted();
     }
 
-    public Category getCategoryById(long categoryId) {
-        return this.categoryRepository.getOne(categoryId);
+    /**
+     * Finds a possible existing category by id
+     * @param categoryId
+     * @return
+     */
+    public Optional<Category> getCategoryById(long categoryId) {
+        return this.categoryRepository.findById(categoryId);
     }
 }

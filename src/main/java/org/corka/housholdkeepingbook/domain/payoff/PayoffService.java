@@ -1,7 +1,9 @@
 package org.corka.housholdkeepingbook.domain.payoff;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.corka.housholdkeepingbook.domain.category.CategoryDoesNotExists;
 import org.corka.housholdkeepingbook.domain.category.CategoryService;
 import org.corka.housholdkeepingbook.domain.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,17 +30,22 @@ public class PayoffService {
         this.categoryService = categoryService;
     }
 
-    void addPayoff(PayoffDto payoffDto, String userName) {
-        val category = this.categoryService.getCategoryById(payoffDto.getCategoryId());
+    @SneakyThrows
+    PayoffDto addPayoff(PayoffDto payoffDto, String userName) {
+        val categoryOpt = this.categoryService.getCategoryById(payoffDto.getCategoryId());
         val creator = this.userService.findUserByNameIgnoreCase(userName);
-        val payoff = PayoffDtoMapper.fromDto(payoffDto, category, creator);
+        val payoff = categoryOpt
+                .map(category -> PayoffDtoMapper.fromDto(payoffDto, category, creator))
+                .orElseThrow(CategoryDoesNotExists::new);
+
         payoff.setCreationDate(LocalDateTime.now());
 
         log.info("User {} tries to add payoff: {}", userName, payoff.toString());
-        this.payoffRepository.save(payoff);
+        val newPayoff = this.payoffRepository.save(payoff);
+        return PayoffDtoMapper.toDto(newPayoff);
     }
 
-    List<PayoffDto> getAllPayoffs() {
+    List<PayoffDto> getAllActivePayoffs() {
         val payoffs = this.payoffRepository.findAll().stream()
                 .filter(Payoff::isNotDeleted)
                 .map(PayoffDtoMapper::toDto)

@@ -28,4 +28,6 @@ public class PayoffDto {
 
     private long creatorUserId;
 
+    private boolean regularOccurrence;
+
 }

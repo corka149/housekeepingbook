@@ -46,6 +46,9 @@ public class Payoff {
     @Column
     private boolean deleted = false;
 
+    @Column
+    private boolean regularOccurrence = false;
+
     public boolean isNotDeleted() {
         return !this.deleted;
     }

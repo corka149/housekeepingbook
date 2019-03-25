@@ -32,6 +32,7 @@ public class PayoffController {
         model.addAttribute("payoffs",this.payoffService.getAllActivePayoffs());
         model.addAttribute("lastPayoffs", this.payoffService.getLatestPayoffs(10));
         model.addAttribute("months", Range.getIntegerRange(1, 13));
+
         return "payoff";
     }
 

@@ -15,5 +15,4 @@ public class ThymeleafConfig {
         messageSource.setBasename("labels");
         return messageSource;
     }
-
 }

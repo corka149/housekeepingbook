@@ -13,19 +13,49 @@
     <div>
         <h1 th:text="#{history}">History</h1>
 
-        <!-- Start month-->
-        <label for="startMonth" th:text="#{startMonth}">Start month</label>
-        <select id="startMonth">
-            <option th:each="month : ${months}" th:value="${month}" th:text="${month}"></option>
-        </select>
-        <!-- Start year-->
-        <!-- End month-->
-        <label for="endMonth" th:text="#{endMonth}">End month</label>
-        <select id="endMonth">
-            <option th:each="month : ${months}" th:value="${month}" th:text="${month}"></option>
-        </select>
-        <!-- End year -->
-        <!-- Refresh - GET -->
+
+        <form method="get" action="#" th:action="@{/history}" id="categoryForm">
+            <div class="input-group">
+                <!-- month-->
+                <select id="selectedMonth" name="selectedMonth" class="custom-select">
+                    <option th:each="month : ${months}" th:value="${month}" th:text="${month}" th:selected="${month==currentMonth}">1</option>
+                </select>
+                <!-- year-->
+                <select id="selectedYear" name="selectedYear" class="custom-select">
+                    <option th:each="year : ${years}" th:value="${year}" th:text="${year}" th:selected="${year==currentYear}">2019</option>
+                </select>
+                <div class="input-group-append">
+                    <input type="submit" value="submit" class="btn btn-secondary">
+                </div>
+            </div>
+        </form>
+
+        <!-- Payoffs -->
+        <div th:if="${historicalPayoffs != null}">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" th:text="#{labelPayoffDate}">Payoff date</th>
+                            <th scope="col" th:utext="#{labelOccursRegular}">Regular</th>
+                            <th scope="col" th:text="#{labelDescription}">Description</th>
+                            <th scope="col" th:text="#{labelAmount}">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="payoff: ${historicalPayoffs}">
+                            <td th:text="${payoff.payoffDate.toString()}" scope="row">2019-01-11</td>
+                            <td><span th:if="${payoff.regularOccurrence}">X</span></td>
+                            <td th:text="${payoff.description}"></td>
+                            <td><span th:text="${payoff.amount}">30.00</span> €</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--<ul>-->
+                <!--<li th:each="payoff: ${historicalPayoffs}" th:text="${payoff.description}"></li>-->
+            <!--</ul>-->
+        </div>
     </div>
 </main>
 

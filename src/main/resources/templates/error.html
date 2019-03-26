@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="head :: dependencies">
+</head>
+
+<body>
+
+<nav th:replace="menu :: bar">
+</nav>
+
+<main role="main" class="container">
+    <div class="starter-template">
+        <h1 th:text="#{somethingWentWrong}">Something went wrong</h1>
+        <img class="img-fluid" src="/img/art-blue-broken-1107495.jpg" alt="Blur blurred book">
+    </div>
+</main>
+
+<footer th:replace="footer :: basic">
+</footer>
+
+</body>
+</html>

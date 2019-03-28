@@ -10,6 +10,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
+@Table(name = "housekeepingbook_user")
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {

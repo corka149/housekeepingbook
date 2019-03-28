@@ -29,14 +29,16 @@ public class ApplicationMain implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        StopWatch watch = new StopWatch();
-        watch.start();
-        User user = new User();
-        user.setName(this.adminName);
-        user.setPassword(this.adminPassword);
+        if (userService.findUserByNameIgnoreCase(this.adminName) == null) {
+            StopWatch watch = new StopWatch();
+            watch.start();
+            User user = new User();
+            user.setName(this.adminName);
+            user.setPassword(this.adminPassword);
 
-        userService.addUser(user);
-        watch.stop();
-        log.info("Added default user ({} sec)", watch.getTotalTimeSeconds());
+            userService.addUser(user);
+            watch.stop();
+            log.info("Added default user ({} sec)", watch.getTotalTimeSeconds());
+        }
     }
 }

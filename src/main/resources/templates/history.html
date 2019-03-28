@@ -45,7 +45,7 @@
                     <tbody>
                         <tr th:each="payoff: ${historicalPayoffs}">
                             <td th:text="${payoff.payoffDate.toString()}" scope="row">2019-01-11</td>
-                            <td><span th:if="${payoff.regularOccurrence}">X</span></td>
+                            <td th:text="${payoff.regularOccurrence ? 'X' : 'O'}"></td>
                             <td th:text="${payoff.description}"></td>
                             <td><span th:text="${payoff.amount}">30.00</span>&nbsp;€</td>
                         </tr>

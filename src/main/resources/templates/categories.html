@@ -25,7 +25,7 @@
         <tr th:each="category: ${categoryList}">
             <th scope="row" th:text="${category.id}">1</th>
             <td th:text="${category.name}">Rent</td>
-            <td><a style="font-weight: bold; color: red;" class="btn btn-link" href="#" role="button" th:href="@{/category/__${category.id}__/delete}">X</a></td>
+            <td><a style="font-weight: bold; color: red;" href="#" role="button" th:href="@{/category/__${category.id}__/delete}">X</a></td>
         </tr>
         </tbody>
     </table>

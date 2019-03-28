@@ -27,7 +27,7 @@
                 <th scope="row" th:text="${user.id}">1</th>
                 <td th:text="${user.name}">Rent</td>
                 <td th:text="${user.favoriteColor}">Red</td>
-                <td><a style="font-weight: bold; color: red;" class="btn btn-link" href="#" role="button" th:href="@{/user/__${user.id}__/delete}">X</a></td>
+                <td><a style="font-weight: bold; color: red;" href="#" role="button" th:href="@{/user/__${user.id}__/delete}">X</a></td>
             </tr>
             </tbody>
         </table>

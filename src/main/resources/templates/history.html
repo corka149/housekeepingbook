@@ -25,7 +25,7 @@
                     <option th:each="year : ${years}" th:value="${year}" th:text="${year}" th:selected="${year==currentYear}">2019</option>
                 </select>
                 <div class="input-group-append">
-                    <input type="submit" value="submit" class="btn btn-secondary">
+                    <input type="submit" value="submit" th:value="#{refreshButton}" class="btn btn-secondary">
                 </div>
             </div>
         </form>
@@ -47,7 +47,7 @@
                             <td th:text="${payoff.payoffDate.toString()}" scope="row">2019-01-11</td>
                             <td><span th:if="${payoff.regularOccurrence}">X</span></td>
                             <td th:text="${payoff.description}"></td>
-                            <td><span th:text="${payoff.amount}">30.00</span> €</td>
+                            <td><span th:text="${payoff.amount}">30.00</span>&nbsp;€</td>
                         </tr>
                     </tbody>
                 </table>

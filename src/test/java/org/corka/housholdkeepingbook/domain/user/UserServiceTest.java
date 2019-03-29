@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -15,6 +16,7 @@ import static org.springframework.test.jdbc.JdbcTestUtils.countRowsInTable;
 import static org.springframework.test.jdbc.JdbcTestUtils.deleteFromTables;
 
 @SpringBootTest
+@AutoConfigureTestDatabase
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserServiceTest {
 
@@ -28,7 +30,7 @@ public class UserServiceTest {
     public void setup(){
         deleteFromTables(jdbcTemplate, "payoff");
         deleteFromTables(jdbcTemplate, "category");
-        deleteFromTables(jdbcTemplate, "user");
+        deleteFromTables(jdbcTemplate, "housekeepingbook_user");
     }
 
     @Test
@@ -131,6 +133,6 @@ public class UserServiceTest {
 
 
     private void checkRowCount(int expected) {
-        assertThat(countRowsInTable(jdbcTemplate, "user")).isEqualTo(expected);
+        assertThat(countRowsInTable(jdbcTemplate, "housekeepingbook_user")).isEqualTo(expected);
     }
 }

@@ -4,14 +4,14 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
 import lombok.val;
 import org.corka.housholdkeepingbook.domain.user.User;
-import org.corka.housholdkeepingbook.domain.user.UserRepository;
+import org.corka.housholdkeepingbook.domain.user.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
@@ -21,6 +21,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.jdbc.JdbcTestUtils.deleteFromTables;
 
 @WithMockUser(username = "bob", password = "secret")
 @SpringBootTest
@@ -37,19 +38,22 @@ public class CategoryControllerTest {
     private WebClient webClient;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    JdbcTemplate jdbcTemplate;
 
     @Before
     public void setup() {
-        if (this.userRepository.findByNameContainingIgnoreCase("bob") == null) {
-            val user = new User();
-            user.setName("Bob");
-            user.setPassword(this.passwordEncoder.encode("secret"));
-            this.userRepository.save(user);
-        }
+
+        deleteFromTables(jdbcTemplate, "payoff");
+        deleteFromTables(jdbcTemplate, "category");
+        deleteFromTables(jdbcTemplate, "housekeepingbook_user");
+
+        val user = new User();
+        user.setName("Bob");
+        user.setPassword("secret");
+        this.userService.addUser(user);
 
         webClient = MockMvcWebClientBuilder
                 .webAppContextSetup(context, springSecurity())

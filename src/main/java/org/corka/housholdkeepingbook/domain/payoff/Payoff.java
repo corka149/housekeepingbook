@@ -52,4 +52,8 @@ public class Payoff {
     public boolean isNotDeleted() {
         return !this.deleted;
     }
+
+    public boolean isIrregular() {
+        return !this.regularOccurrence;
+    }
 }

@@ -56,7 +56,6 @@ public class PayoffService {
     }
 
     List<Payoff> getLatestPayoffs(int size) {
-        val payoffs = this.payoffRepository.findLatestAddedActivePayoffs();
         return this.payoffRepository.findLatestAddedActivePayoffs().stream()
                 .filter(Payoff::isNotDeleted)
                 .limit(size)

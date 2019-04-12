@@ -30,7 +30,7 @@ public class PayoffController {
         model.addAttribute("newPayoff", new PayoffDto());
         model.addAttribute("categories", this.categoryService.getAllActiveCategories());
         model.addAttribute("payoffs",this.payoffService.getAllActivePayoffs());
-        model.addAttribute("lastPayoffs", this.payoffService.getLatestPayoffs(10));
+        model.addAttribute("lastPayoffs", this.payoffService.getLatestPayoffs(5));
         model.addAttribute("months", Range.getIntegerRange(1, 13));
 
         return "payoff";

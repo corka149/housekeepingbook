@@ -32,8 +32,14 @@ public class HistoryController {
         model.addAttribute("currentMonth", LocalDate.now().getMonthValue());
         model.addAttribute("currentYear", LocalDate.now().getYear());
 
-        if (selectedYear != null && selectedMonth != null)
+
+        if (selectedYear != null && selectedMonth != null) {
+            model.addAttribute("sumIrregularPayoffs", this.historyService.getSumOfIrregularPayoffs(selectedYear, selectedMonth));
+            model.addAttribute("sumRegularPayoffs", this.historyService.getSumOfRegularPayoffs(selectedYear, selectedMonth));
+            model.addAttribute("sumPayoffs", this.historyService.getSumOfPayoffs(selectedYear, selectedMonth));
             model.addAttribute("historicalPayoffs", this.historyService.getActivePayoffsInRange(selectedYear, selectedMonth));
+        }
+
         return "history";
     }
 

@@ -47,7 +47,37 @@
                             <td th:text="${payoff.payoffDate.toString()}" scope="row">2019-01-11</td>
                             <td th:text="${payoff.regularOccurrence ? 'X' : 'O'}"></td>
                             <td th:text="${payoff.description}"></td>
-                            <td><span th:text="${payoff.amount}">30.00</span>&nbsp;€</td>
+                            <td>
+                                <span th:text="${payoff.amount}">30.00</span>
+                                &nbsp;€
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col" th:text="#{labelAmount}">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th th:utext="#{sumIrregularAmount}">Sum irregular amount</th>
+                            <td scope="row"><span th:text="${sumIrregularPayoffs}">31.00</span>&nbsp;€</td>
+                        </tr>
+
+                        <tr>
+                            <th th:utext="#{sumRegularAmount}">Sum regular amount</th>
+                            <td scope="row"><span th:text="${sumRegularPayoffs}">31.00</span>&nbsp;€</td>
+                        </tr>
+
+                        <tr>
+                            <th th:text="#{totalSumAmount}">Total sum</th>
+                            <td scope="row"><span th:text="${sumPayoffs}">31.00</span>&nbsp;€</td>
                         </tr>
                     </tbody>
                 </table>

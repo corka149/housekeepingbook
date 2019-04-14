@@ -71,4 +71,8 @@ public class PayoffService {
         log.info("Deleted payoff with id {}", payoff);
         this.payoffRepository.save(payoff);
     }
+
+    Payoff getPayoffById(long id) {
+        return this.payoffRepository.getOne(id);
+    }
 }

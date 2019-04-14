@@ -40,6 +40,7 @@
                             <th scope="col" th:utext="#{labelOccursRegular}">Regular</th>
                             <th scope="col" th:text="#{labelDescription}">Description</th>
                             <th scope="col" th:text="#{labelAmount}">Amount</th>
+                            <th scope="col">&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,7 +50,9 @@
                             <td th:text="${payoff.description}"></td>
                             <td>
                                 <span th:text="${payoff.amount}">30.00</span>
-                                &nbsp;€
+                            </td>
+                            <td>
+                                <a th:text="#{labelEdit}" href="#" role="button" th:href="@{/payoff?id=__${payoff.id}__}">Edit</a>
                             </td>
                         </tr>
                     </tbody>
@@ -67,17 +70,17 @@
                     <tbody>
                         <tr>
                             <th th:utext="#{sumIrregularAmount}">Sum irregular amount</th>
-                            <td scope="row"><span th:text="${sumIrregularPayoffs}">31.00</span>&nbsp;€</td>
+                            <td scope="row" th:text="${sumIrregularPayoffs}">31.00</td>
                         </tr>
 
                         <tr>
                             <th th:utext="#{sumRegularAmount}">Sum regular amount</th>
-                            <td scope="row"><span th:text="${sumRegularPayoffs}">31.00</span>&nbsp;€</td>
+                            <td scope="row" th:text="${sumRegularPayoffs}">31.00</td>
                         </tr>
 
                         <tr>
                             <th th:text="#{totalSumAmount}">Total sum</th>
-                            <td scope="row"><span th:text="${sumPayoffs}">31.00</span>&nbsp;€</td>
+                            <td scope="row" th:text="${sumPayoffs}">31.00</td>
                         </tr>
                     </tbody>
                 </table>

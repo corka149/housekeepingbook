@@ -26,8 +26,14 @@ public class PayoffController {
     }
 
     @GetMapping
-    public String viewPayoffForm(Model model) {
-        model.addAttribute("newPayoff", new PayoffDto());
+    public String viewPayoffForm(Model model, @RequestParam(required = false) Long id) {
+        log.info("Requested payoff with id={}", id);
+
+        if (id == null)
+            model.addAttribute("newPayoff", new PayoffDto());
+        else
+            model.addAttribute("newPayoff", PayoffDtoMapper.toDto(this.payoffService.getPayoffById(id)));
+
         model.addAttribute("categories", this.categoryService.getAllActiveCategories());
         model.addAttribute("payoffs",this.payoffService.getAllActivePayoffs());
         model.addAttribute("lastPayoffs", this.payoffService.getLatestPayoffs(5));
@@ -39,7 +45,7 @@ public class PayoffController {
     @PostMapping
     public String addPayoff(@ModelAttribute PayoffDto newPayoff, Model model, Principal principal) {
         this.payoffService.addPayoff(newPayoff, principal.getName());
-        return this.viewPayoffForm(model);
+        return this.viewPayoffForm(model, null);
     }
 
     @GetMapping("/{payoffId}/delete")

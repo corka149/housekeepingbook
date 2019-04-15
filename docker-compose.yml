@@ -21,7 +21,7 @@ services:
     ports:
       - 5432:5432
     environment:
-      SPRING_DATASOURCE_USERNAME: secret
+      POSTGRES_PASSWORD: secret
       POSTGRES_DB: housekeepingbook
     networks:
       - housekeeping

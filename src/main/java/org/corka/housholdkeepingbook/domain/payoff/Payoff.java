@@ -19,7 +19,8 @@ import java.time.LocalDateTime;
 public class Payoff {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "payoff_generator")
+    @SequenceGenerator(name = "payoff_generator", sequenceName = "payoff_id_seq")
     private long id;
 
     @NonNull

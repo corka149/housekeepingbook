@@ -2,15 +2,15 @@ version: "3"
 
 services:
   housekeepingbook:
-    image: housekeepingbook:0.3
+    image: housekeepingbook:0.4
     ports:
       - 9010:9010
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/housekeepingbook
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: secret
-      HOUSEKEEPINGBOOK_ADMIN_NAME: corka
-      HOUSEKEEPINGBOOK_ADMIN_PASSWORD: passwd
+      SPRING_DATASOURCE_USERNAME: $DB_USER
+      SPRING_DATASOURCE_PASSWORD: $DB_PASSWORD
+      HOUSEKEEPINGBOOK_ADMIN_NAME: $HKB_ADMIN_NAME
+      HOUSEKEEPINGBOOK_ADMIN_PASSWORD: $HKB_ADMIN_PASSWORD
     networks:
       - housekeeping
     depends_on:
@@ -21,7 +21,7 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_PASSWORD: secret
+      POSTGRES_PASSWORD: $DB_PASSWORD
       POSTGRES_DB: housekeepingbook
     networks:
       - housekeeping

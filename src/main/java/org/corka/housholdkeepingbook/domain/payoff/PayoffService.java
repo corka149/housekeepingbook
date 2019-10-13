@@ -35,11 +35,13 @@ public class PayoffService {
     PayoffDto addPayoff(PayoffDto payoffDto, String userName) {
         val categoryOpt = this.categoryService.getCategoryById(payoffDto.getCategoryId());
         val creator = this.userService.findUserByNameIgnoreCase(userName);
+        val payoffId = this.payoffRepository.findHighestPayOffId() + 1L;
         val payoff = categoryOpt
                 .map(category -> PayoffDtoMapper.fromDto(payoffDto, category, creator))
                 .orElseThrow(CategoryDoesNotExists::new);
 
         payoff.setCreationDate(LocalDateTime.now());
+        payoff.setId(payoffId);
 
         log.info("User {} tries to add payoff: {}", userName, payoff.toString());
         val newPayoff = this.payoffRepository.save(payoff);

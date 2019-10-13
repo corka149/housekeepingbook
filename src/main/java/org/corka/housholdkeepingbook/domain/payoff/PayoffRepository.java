@@ -12,4 +12,6 @@ public interface PayoffRepository extends JpaRepository<Payoff, Long> {
     @Query("select p from Payoff p where deleted = FALSE order by creationDate desc")
     List<Payoff> findLatestAddedActivePayoffs();
 
+    @Query("select max(p.id) from Payoff p")
+    long findHighestPayOffId();
 }

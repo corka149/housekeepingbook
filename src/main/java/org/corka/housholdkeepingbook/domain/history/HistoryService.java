@@ -32,4 +32,28 @@ public class HistoryService {
         return historicalPayoffs;
     }
 
+    double getSumOfRegularPayoffs(int year, int month) {
+        val sumOfRegularPayoffs =  this.getActivePayoffsInRange(year, month).stream()
+                .filter(Payoff::isRegularOccurrence)
+                .mapToDouble(Payoff::getAmount).sum();
+        log.info("sumOfRegularPayoffs of year {} and month {} is {}.", year, month, sumOfRegularPayoffs);
+        return sumOfRegularPayoffs;
+    }
+
+    double getSumOfIrregularPayoffs(int year, int month) {
+        val sumOfIrregularPayoffs = this.getActivePayoffsInRange(year, month).stream()
+                .filter(Payoff::isIrregular)
+                .mapToDouble(Payoff::getAmount)
+                .sum();
+        log.info("sumOfIrregularPayoffs of year {} and month {} is {}.", year, month, sumOfIrregularPayoffs);
+        return sumOfIrregularPayoffs;
+    }
+
+    double getSumOfPayoffs(int year, int month) {
+        val sumOfPayoffs = this.getActivePayoffsInRange(year, month).stream()
+                .mapToDouble(Payoff::getAmount)
+                .sum();
+        log.info("sumOfPayoffs of year {} and month {} is {}.", year, month, sumOfPayoffs);
+        return sumOfPayoffs;
+    }
 }

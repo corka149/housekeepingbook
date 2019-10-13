@@ -35,7 +35,7 @@ public class PayoffService {
     PayoffDto addPayoff(PayoffDto payoffDto, String userName) {
         val categoryOpt = this.categoryService.getCategoryById(payoffDto.getCategoryId());
         val creator = this.userService.findUserByNameIgnoreCase(userName);
-        val payoffId = this.payoffRepository.findHighestPayOffId() + 1L;
+        val payoffId = this.payoffRepository.findHighestPayOffId().map(id -> id + 1L).orElse(1L);
         val payoff = categoryOpt
                 .map(category -> PayoffDtoMapper.fromDto(payoffDto, category, creator))
                 .orElseThrow(CategoryDoesNotExists::new);

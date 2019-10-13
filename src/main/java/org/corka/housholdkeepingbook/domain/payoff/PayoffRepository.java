@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PayoffRepository extends JpaRepository<Payoff, Long> {
@@ -13,5 +14,5 @@ public interface PayoffRepository extends JpaRepository<Payoff, Long> {
     List<Payoff> findLatestAddedActivePayoffs();
 
     @Query("select max(p.id) from Payoff p")
-    long findHighestPayOffId();
+    Optional<Long> findHighestPayOffId();
 }
